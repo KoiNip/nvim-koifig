@@ -1,88 +1,107 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    branch = 'master',
-    lazy = false,
-    build = ":TSUpdate",
-    config = function()
-        local configs = require("nvim-treesitter.configs")
-        configs.setup({
-            ensure_installed = {
-                "c",
-                "lua",
-                "cpp",
-                "python",
-                "java",
-                "javascript",
-                "go",
-                "rust",
-                "c_sharp",
-                "gdscript",
-                "make",
-                "arduino",
-                "asm",
-                "bash",
-                "cmake",
-                "comment",
-                "css",
-                "csv",
-                "diff",
-                "desktop",
-                "disassembly",
-                "dockerfile",
-                "fortran",
-                "gdshader",
-                "git_config",
-                "git_rebase",
-                "gitattributes",
-                "gitcommit",
-                "gitignore",
-                "haskell",
-                "html",
-                "htmldjango",
-                "http",
-                "hyprlang",
-                "ini",
-                "javadoc",
-                "jsdoc",
-                "json",
-                "json5",
-                "jsonnet",
-                "kconfig",
-                "kotlin",
-                "linkerscript",
-                "luadoc",
-                "markdown",
-                "markdown_inline",
-                "matlab",
-                "meson",
-                "objdump",
-                "php",
-                "powershell",
-                "printf",
-                "properties",
-                "regex",
-                "ruby",
-                "sql",
-                "ssh_config",
-                "svelte",
-                "sway",
-                "tmux",
-                "toml",
-                "typescript",
-                "udev",
-                "xml",
-                "yaml",
-            },
-            sync_install = false,
-            highlight = { 
-                enable = true, 
-                disable = {""},
-                additional_vim_regex_highlighting = true,
-            },
-            indent = { 
-                enable = true, 
-                disable = { "yaml" },
-            },
-        }) 
-    end
+    {
+        "nvim-treesitter/nvim-treesitter",
+        branch = 'master',
+        lazy = false,
+        build = ":TSUpdate",
+        config = function()
+            local configs = require("nvim-treesitter.configs")
+            ---@diagnostic disable-next-line: missing-fields        -- Used to disable a noisy "Missing fields" warning
+            configs.setup({
+                ensure_installed = {
+                    "c",
+                    "lua",
+                    "cpp",
+                    "python",
+                    "java",
+                    "javascript",
+                    "go",
+                    "rust",
+                    "c_sharp",
+                    "gdscript",
+                    "make",
+                    "arduino",
+                    "asm",
+                    "bash",
+                    "cmake",
+                    "comment",
+                    "css",
+                    "csv",
+                    "diff",
+                    "desktop",
+                    "dockerfile",
+                    "gitignore",
+                    "html",
+                    "http",
+                    "markdown",
+                    "markdown_inline",
+                },
+                sync_install = false,
+                auto_install = true,
+                highlight = {
+                    enable = true,
+                    disable = {""},
+                    additional_vim_regex_highlighting = true,
+                },
+                indent = {
+                    enable = true,
+                    disable = { "yaml" },
+                },
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = "<Leader>ss",
+                        node_incremental = "<Leader>si",
+                        scope_incremental = "<Leader>sc",
+                        node_decremental = "<Leader>sd",
+                    }
+                },
+                textobjects = {         -- Configures text objects. Allows
+                    select = {
+                        enable = true,
+
+                        -- Automatically jump forward to textobj, similar to targets.vim
+                        lookahead = true,
+
+                        keymaps = {
+                            -- You can use the capture groups defined in textobjects.scm
+                            ["af"] = "@function.outer",
+                            ["if"] = "@function.inner",
+                            ["ac"] = "@class.outer",
+                            -- You can optionally set descriptions to the mappings (used in the desc parameter of
+                            -- nvim_buf_set_keymap) which plugins like which-key display
+                            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+                            -- You can also use captures from other query groups like `locals.scm`
+                            ["as"] = { query = "@local.scope", query_group = "locals", desc = "Select language scope" },
+                        },
+                        -- You can choose the select mode (default is charwise 'v')
+                        --
+                        -- Can also be a function which gets passed a table with the keys
+                        -- * query_string: eg '@function.inner'
+                        -- * method: eg 'v' or 'o'
+                        -- and should return the mode ('v', 'V', or '<c-v>') or a table
+                        -- mapping query_strings to modes.
+                        selection_modes = {
+                            ['@parameter.outer'] = 'v', -- charwise
+                            ['@function.outer'] = 'V', -- linewise
+                            ['@class.outer'] = '<c-v>', -- blockwise
+                        },
+                        -- If you set this to `true` (default is `false`) then any textobject is
+                        -- extended to include preceding or succeeding whitespace. Succeeding
+                        -- whitespace has priority in order to act similarly to eg the built-in
+                        -- `ap`.
+                        --
+                        -- Can also be a function which gets passed a table with the keys
+                        -- * query_string: eg '@function.inner'
+                        -- * selection_mode: eg 'v'
+                        -- and should return true or false
+                        include_surrounding_whitespace = true,
+                    },
+                },
+            })
+        end
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+    }
 }
