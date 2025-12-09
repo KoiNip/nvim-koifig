@@ -20,6 +20,17 @@ return {
                 "--function-arg-placeholders=0",
             },
         })
+        vim.lsp.config("neocmake", {
+            capabilities = {
+                textDocument = {
+                    completion = {
+                        completionItem = {
+                            snippetSupport = false
+                        }
+                    }
+                }
+            }
+        })
         vim.lsp.enable('neocmake')
 
         vim.diagnostic.config({
