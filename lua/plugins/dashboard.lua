@@ -12,13 +12,12 @@ return {
     ]]
 
         -- Directories to search with telescope
-        local dir_to_search = '{"~/Documents","~/desktopScripts","~/Desktop/","~/Downloads","~/.config"}'
-        local current_project = "~/Documents/raylib/helloWorld/"        -- Update this to the project we want to work on
+        local dir_to_search = '{"~/Documents","~/desktopScripts","~/Desktop/","~/Downloads"}'
 
         logo = string.rep("\n", 8) .. logo .. "\n\n"
 
         local opts = {
-            theme = "doom",
+            theme = "hyper",
             hide = {
                 -- this is taken care of by lualine
                 -- enabling this messes up the actual laststatus setting after loading a file
@@ -27,13 +26,20 @@ return {
             config = {
                 header = vim.split(logo, "\n"),
                 -- stylua: ignore
+                shortcut = {
+                    {icon = '󰈞 ', desc = 'Files', group = '@property', action = 'Telescope find_files search_dirs='..dir_to_search, key = 'f' },
+                    --{icon = ' ', desc = 'Find Text', group = '@property', action = 'Telescope app', key = 'g' },
+                    {icon = '󰒲 ', desc = 'Lazy', group = '@property', action = 'Lazy', key = 'l' },
+                    {icon = ' ', desc = 'Config', group = '@property', action = 'Telescope find_files search_dirs='..vim.fn.stdpath('config'), key = 'c' },
+                    {icon = ' ', desc = 'Lazy', group = '@property', action = function() vim.api.nvim_input("<cmd>qa<cr>") end, key = 'q' },
+                },
                 center = {
                     { action = ":ene | startinsert",                                                  desc = " New File",                icon = " ", key = "n" },
                     { action = 'Telescope find_files search_dirs='..dir_to_search,      desc = " Find File",            icon = "󰈞 ", key = "f" },
-                    { action = "Telescope find_files search_dirs="..current_project,    desc = " Current Project",      icon = " ", key = "p" },
+                    --{ action = ":cd"..current_project.." | Telescope find_files",    desc = " Current Project",      icon = " ", key = "p" },
                     { action = 'Telescope oldfiles',                                    desc = " Recent Files",         icon = " ", key = "r" },
                     { action = 'Telescope live_grep search_dirs='..dir_to_search,       desc = " Find Text",            icon = " ", key = "g" },
-                    { action = 'Telescope find_files search_dirs=~/.config/nvim',       desc = " Config",               icon = " ", key = "c" },
+                    { action = ':cd ~/.config/nvim | Telescope find_files',       desc = " Config",               icon = " ", key = "c" },
                     --{ action = 'lua require("persistence").load()',                     desc = " Restore Session",      icon = " ", key = "s" },
                     { action = "Lazy",                                                  desc = " Lazy",                 icon = "󰒲 ", key = "l" },
                     { action = function() vim.api.nvim_input("<cmd>qa<cr>") end,        desc = " Quit",                 icon = " ", key = "q" },

@@ -1,11 +1,11 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = 'master',
+        branch = 'main',
         lazy = false,
         build = ":TSUpdate",
         config = function()
-            local configs = require("nvim-treesitter.configs")
+            local configs = require("nvim-treesitter.config")
             ---@diagnostic disable-next-line: missing-fields        -- Used to disable a noisy "Missing fields" warning
             configs.setup({
                 ensure_installed = {
