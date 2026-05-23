@@ -28,6 +28,7 @@ return {
                 -- stylua: ignore
                 shortcut = {
                     {icon = '󰈞 ', desc = 'Files', group = '@property', action = 'Telescope find_files search_dirs='..dir_to_search, key = 'f' },
+                    {icon = " ", desc = " New File", group = '@property', action = ":ene | startinsert", key = "n" },
                     --{icon = ' ', desc = 'Find Text', group = '@property', action = 'Telescope app', key = 'g' },
                     {icon = '󰒲 ', desc = 'Lazy', group = '@property', action = 'Lazy', key = 'l' },
                     {icon = ' ', desc = 'Config', group = '@property', action = 'Telescope find_files search_dirs='..vim.fn.stdpath('config'), key = 'c' },
