@@ -12,7 +12,7 @@ return {
     ]]
 
         -- Directories to search with telescope
-        local dir_to_search = '{"~/Documents","~/desktopScripts","~/Desktop/","~/Downloads"}'
+        local dir_to_search = '{"~/Projects","~/Documents","~/desktopScripts","~/Desktop/","~/Downloads"}'
 
         logo = string.rep("\n", 8) .. logo .. "\n\n"
 
@@ -32,7 +32,7 @@ return {
                     --{icon = ' ', desc = 'Find Text', group = '@property', action = 'Telescope app', key = 'g' },
                     {icon = '󰒲 ', desc = 'Lazy', group = '@property', action = 'Lazy', key = 'l' },
                     {icon = ' ', desc = 'Config', group = '@property', action = 'Telescope find_files search_dirs='..vim.fn.stdpath('config'), key = 'c' },
-                    {icon = ' ', desc = 'Lazy', group = '@property', action = function() vim.api.nvim_input("<cmd>qa<cr>") end, key = 'q' },
+                    {icon = ' ', desc = 'Quit', group = '@property', action = function() vim.api.nvim_input("<cmd>qa<cr>") end, key = 'q' },
                 },
                 -- center = {
                 --     { action = ":ene | startinsert",                                                  desc = " New File",                icon = " ", key = "n" },
