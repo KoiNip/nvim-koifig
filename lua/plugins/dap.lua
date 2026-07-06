@@ -43,43 +43,55 @@ return {
             }
 
             -- Configure gdp for c/cpp/rust
+            --dap.configurations.cpp = {
+            --   {
+            --        name = "Launch",
+            --        type = "gdb",
+            --        request = "launch",
+            --        program = function()
+            --            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            --        end,
+            --        cwd = "${workspaceFolder}",
+            --        stopAtBeginningOfMainSubprogram = false,
+            --    },
             dap.configurations.cpp = {
                 {
-                    name = "Launch",
+                    name = "Launch Dynamic",
                     type = "gdb",
                     request = "launch",
                     program = function()
-                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                        -- Auto-construct path based on current directory
+                        local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+                        return vim.fn.getcwd() .. "/out/Debug/" .. project_name
                     end,
                     cwd = "${workspaceFolder}",
-                    stopAtBeginningOfMainSubprogram = false,
                 },
-                --[[{
-                    name = "Select and attach to process",
-                    type = "gdb",
-                    request = "attach",
-                    program = function()
-                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-                    end,
-                    pid = function()
-                        local name = vim.fn.input('Executable name (filter): ')
-                        return require("dap.utils").pick_process({ filter = name })
-                    end,
-                    cwd = '${workspaceFolder}'
-                },
-                {
-                    name = 'Attach to gdbserver :1234',
-                    type = 'gdb',
-                    request = 'attach',
-                    target = 'localhost:1234',
-                    program = function()
-                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-                    end,
-                    cwd = '${workspaceFolder}'
-                },--]]
-            }
-            dap.configurations.c = dap.configurations.cpp
-            dap.configurations.rust = dap.configurations.cpp
-        end
-    }
+            --[[{
+                name = "Select and attach to process",
+                type = "gdb",
+                request = "attach",
+                program = function()
+                    return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                end,
+                pid = function()
+                    local name = vim.fn.input('Executable name (filter): ')
+                    return require("dap.utils").pick_process({ filter = name })
+                end,
+                cwd = '${workspaceFolder}'
+            },
+            {
+                name = 'Attach to gdbserver :1234',
+                type = 'gdb',
+                request = 'attach',
+                target = 'localhost:1234',
+                program = function()
+                    return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                end,
+                cwd = '${workspaceFolder}'
+            },--]]
+        }
+        dap.configurations.c = dap.configurations.cpp
+        dap.configurations.rust = dap.configurations.cpp
+    end
+}
 }
