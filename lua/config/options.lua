@@ -27,3 +27,4 @@ vim.opt.winborder = "rounded"       -- Rounds off borders for other windows in v
 vim.opt.virtualedit = "block"       -- Improves visual block mode by allowing you to move past the end of a line when selecting
 vim.opt.inccommand = "split"        -- Creates a window at the bottom of the screen to preview changes made when replacing text and more
 vim.opt.termguicolors = true        -- Allows the terminal to display full colors
+vim.g.vimwiki_global_ext = 0        -- Restricts vimwiki to only it's directory
